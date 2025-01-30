@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="#" />
+    <style>
+        .header{
+            background-color: aquamarine;
+            padding:1px 0 20px 0;
+            height:130px;
+        }
+        .title{
+            font-weight: bold;
+            font-size:50px;
+            color:grey;
+            text-align:center;
+            padding-bottom:30px;
+        }
+        .hobby{
+           border:10px solid gray;
+           margin:10px 100px 200px 100px;
+           border-radius:20px;
+           height:750px;
+        }
+        .heading-line{
+           border:5px solid peru;
+           margin:0 300px 0 100px;
+           border-radius:20px;
+        }
+        .hobby-heading{
+            font-size:40px;
+            margin:0 0 0 100px;
+            font-weight:bold;
+            color:cadetblue;
+        }
+         .photography-img,.woodworking-img, .space-img{
+            padding:20px 20px;
+        } 
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <p class="title">Welcome to Basker's Hobby Home</p>
+    </div>
+    <br>
+    <br>
+    <section>
+        <p class="hobby-heading">Photography</p>
+        <div class="heading-line"></div>
+        <br>
+        <div class="hobby">
+            <div id="photography">
+
+            </div>
+        </div>
+    </section>
+    <section>
+        <p class="hobby-heading">Wood Working</p>
+        <div class="heading-line"></div>
+        <br>
+        <div class="hobby">
+            <div id="woodworking">
+
+            </div>
+
+        </div>
+    </section>
+    <section>
+        <p class="hobby-heading">Space pics</p>
+        <div class="heading-line"></div>
+        <br>
+        <div class="hobby">
+            <div id="space">
+
+            </div>
+        </div>
+        
+    </section>
+    <script>
+        try {
+    console.log('hi');
+    const response=fetch('/', {
+      method: 'POST',
+      body: JSON.stringify({ folderName1: 'imagesP', folderName2: 'imagesW',folderName3: 'imagesS'}),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then(response => response.json()) 
+    .then(responseData => {  //responseData is nothing but response.json()
+        
+        console.log(responseData.folder1,responseData.folder2,responseData.folder3);
+        addImagesToPhotography(parseInt(responseData.folder1));
+        addImagesToWoodworking(parseInt(responseData.folder2));
+        addImagesToSpacepics(parseInt(responseData.folder3));
+      })
+      .catch(error => console.error('Error:', error));
+        
+    } catch (error) {
+    console.error('Error:', error);
+  }
+
+    function display(imgclass,folderName){
+        var img=document.getElementsByClassName(imgclass);
+        console.log(img);
+        let crossimg=document.createElement("img");
+        let imgcontainer=document.createElement("div");
+            for(let i=0;i<img.length;i++){
+                let value=0;
+                let currentimg=img[i];
+                currentimg.addEventListener("click",()=>{
+                    console.log(img[i]);
+                    value++;
+                    console.log(value);
+                        console.log("clicked",i,value);
+                        let current=document.createElement("img");
+                        //console.log(current);
+                        current.setAttribute('id','current')
+                        current.setAttribute('src',folderName+`${i+1}.jpg`);
+                        current.style.height="auto";
+                        current.style.width="auto";
+                        current.style.zIndex="5";
+                        current.style.maxHeight="500px";
+                        current.style.maxWidth="500px";
+                        current.style.marginTop="100px";
+                        current.style.marginLeft="450px";
+
+
+                        imgcontainer.style.position="fixed";
+                        imgcontainer.style.overflow="auto";
+                        imgcontainer.style.display="block";//make it visible
+                        imgcontainer.style.backgroundColor="rgba(20,20,20,0.8)";
+                        imgcontainer.style.height="700px";
+                        imgcontainer.style.width="1500px";
+                        imgcontainer.style.zIndex="1";
+
+                        crossimg.setAttribute('id','cross');
+                        crossimg.setAttribute('src',`cross.png`);
+                        crossimg.style.display="block";//make it visible
+                        crossimg.style.position="fixed";
+                        crossimg.style.height="50px";
+                        crossimg.style.width="50px";
+                        crossimg.style.marginTop="0px";
+                        crossimg.style.marginLeft="1420px";
+                        crossimg.style.zIndex="5";
+
+                        document.body.prepend(imgcontainer);//add it to the top
+                        imgcontainer.appendChild(crossimg);
+                        imgcontainer.appendChild(current);
+
+                        crossimg.addEventListener("click",()=>{
+                            imgcontainer.style.display="none";
+                            crossimg.style.display="none";
+                            imgcontainer.removeChild(current);
+                            imgcontainer.removeChild(crossimg);
+                            document.body.removeChild(imgcontainer);
+                            
+                        })
+                        
+                    }
+
+                );
+                
+            } 
+    }
+    const photographyContainer=document.getElementById("photography");
+    function addImagesToPhotography(photoImgLength){
+        for(let i=1;i<=photoImgLength;i++)
+        {
+                
+            const img=document.createElement("img");
+            img.classList.add('photography-img');
+            img.setAttribute("src",`/imagesP/${i}.jpg`);
+            img.style.width="200px";
+            img.style.height="200px";
+            photographyContainer.appendChild(img);
+        };
+
+        display('photography-img','/imagesP/');
+        
+    
+    }
+
+
+    const woodworkingContainer=document.getElementById("woodworking");
+    function addImagesToWoodworking(woodImgLength){
+        for(let i=1;i<=woodImgLength;i++)
+        {
+            const img=document.createElement("img");
+            img.classList.add('woodworking-img');
+            img.setAttribute("src",`./imagesW/${i}.jpg`);
+            img.style.width="200px";
+            img.style.height="200px";
+            woodworkingContainer.appendChild(img);
+        }
+
+        display('woodworking-img','/imagesW/');
+    }
+
+    const spacepicsContainer=document.getElementById("space");
+    function addImagesToSpacepics(spaceImgLength){
+        for(let i=1;i<=spaceImgLength;i++)
+        {
+            const img=document.createElement("img");
+            img.classList.add('space-img');
+            img.setAttribute("src",`./imagesS/${i}.jpg`);
+            img.style.width="200px";
+            img.style.height="200px";
+            spacepicsContainer.appendChild(img);
+        }
+
+        display('space-img','/imagesS/');
+    }
+
+        
+    </script>
+</body>
+</html>
