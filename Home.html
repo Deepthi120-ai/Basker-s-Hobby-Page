@@ -5,7 +5,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="shortcut icon" href="#" />
-    <style>
+    <style> 
+
+@media screen and (max-width:769px) {
+
+    .header{
+        background-color: aquamarine;
+        padding:1px 0 20px 0;
+        height:130px;
+    }
+    .title{
+        font-weight: bold;
+        font-size:30px;
+        color:grey;
+        text-align:center;
+        padding-bottom:30px;
+    }
+    .hobby{
+        border:10px solid gray;
+        margin:10px 0px 150px 0px;
+        border-radius:20px;
+        /* height:750px; */
+    }
+    .heading-line{
+        border:5px solid peru;
+        margin:0 20px 0 20px;
+        border-radius:20px;
+    }
+    .hobby-heading{
+        font-size:40px;
+        margin:0 0 0 100px;
+        font-weight:bold;
+        color:cadetblue;
+    }
+    .photography-img,.woodworking-img, .space-img{
+        padding:10px 10px;
+        height:150px;
+        width:150px;
+    } 
+
+
+}
+     @media screen and (max-width:1024px) and (min-width:769px) {
+
+        .header{
+            background-color: aquamarine;
+            padding:1px 0 20px 0;
+            height:130px;
+        }
+        .title{
+            font-weight: bold;
+            font-size:40px;
+            color:grey;
+            text-align:center;
+            padding-bottom:30px;
+        }
+        .hobby{
+            border:10px solid gray;
+            margin:10px 100px 200px 100px;
+            border-radius:20px;
+            /* height:750px; */
+        }
+        .heading-line{
+            border:5px solid peru;
+            margin:0 300px 0 100px;
+            border-radius:20px;
+        }
+        .hobby-heading{
+            font-size:40px;
+            margin:0 0 0 100px;
+            font-weight:bold;
+            color:cadetblue;
+        }
+        .photography-img,.woodworking-img, .space-img{
+            padding:15px 15px;
+            height:30vh;
+            width:16vw;
+        } 
+
+
+}
+    @media screen and (min-width:1024px) {
+
         .header{
             background-color: aquamarine;
             padding:1px 0 20px 0;
@@ -22,7 +103,9 @@
            border:10px solid gray;
            margin:10px 100px 200px 100px;
            border-radius:20px;
-           height:750px;
+           /* height:750px; */
+           display:grid;
+           grid-template-columns: repeat("30px",3);
         }
         .heading-line{
            border:5px solid peru;
@@ -37,8 +120,13 @@
         }
          .photography-img,.woodworking-img, .space-img{
             padding:20px 20px;
+            height:200px;
+            width:200px;
         } 
 
+        
+    }
+        
     </style>
 </head>
 <body>
@@ -167,50 +255,166 @@
     }
     const photographyContainer=document.getElementById("photography");
     function addImagesToPhotography(photoImgLength){
+        const mediaQuery1 = window.matchMedia('(min-width:1440px)');
+        const mediaQuery2 = window.matchMedia('(min-width:1214px) and (max-width:1440px)');
+        const mediaQuery3 = window.matchMedia('(min-width:973px) and (max-width:1214px)');
+        let height=0;
+        if(mediaQuery1.matches){
+            height=270;
+        }else if(mediaQuery2.matches){
+            height=270;
+        }else if(mediaQuery3.matches){
+            height=270;
+        }else{
+            height=180;
+        }
+    
         for(let i=1;i<=photoImgLength;i++)
         {
                 
             const img=document.createElement("img");
             img.classList.add('photography-img');
             img.setAttribute("src",`/imagesP/${i}.jpg`);
-            img.style.width="200px";
-            img.style.height="200px";
+            //img.style.width="200px";
+            //img.style.height="200px";
             photographyContainer.appendChild(img);
-        };
 
-        display('photography-img','/imagesP/');
+           if (mediaQuery1.matches) {
+                console.log('query1');
+                if(i%5==0){
+                    height=height+270;
+                }
+                    
+            } else if(mediaQuery2.matches) {
+                console.log('query2');
+                if(i%4==0){
+                    height=height+270;
+                }
+            }else if(mediaQuery3.matches){
+                console.log('query3');
+                if(i%3==0){
+                    height=height+270;
+                }
+            }else{
+                console.log('query4')
+                if(i%2==0){
+                    height=height+180;
+                }
+            }
+        }
+        let stheight=(String(height) +"px");
+        console.log(stheight);
+        photographyContainer.style.height=stheight;
+        display('photography-img','/imagesP/');   
+    };
         
-    
-    }
 
 
     const woodworkingContainer=document.getElementById("woodworking");
     function addImagesToWoodworking(woodImgLength){
+        const mediaQuery1 = window.matchMedia('(min-width:1440px)');
+        const mediaQuery2 = window.matchMedia('(min-width:1214px) and (max-width:1440px)');
+        const mediaQuery3 = window.matchMedia('(min-width:973px) and (max-width:1214px)');
+        let height=0;
+        if(mediaQuery1.matches){
+            height=270;
+        }else if(mediaQuery2.matches){
+            height=270;
+        }else if(mediaQuery3.matches){
+            height=270;
+        }else{
+            height=180;
+        }
         for(let i=1;i<=woodImgLength;i++)
         {
             const img=document.createElement("img");
             img.classList.add('woodworking-img');
             img.setAttribute("src",`./imagesW/${i}.jpg`);
-            img.style.width="200px";
-            img.style.height="200px";
+            //img.style.width="200px";
+            //img.style.height="200px";
             woodworkingContainer.appendChild(img);
-        }
 
+           if (mediaQuery1.matches) {
+                console.log('query1');
+                if(i%5==0){
+                    height=height+270;
+                }
+                    
+            } else if(mediaQuery2.matches) {
+                console.log('query2');
+                if(i%4==0){
+                    height=height+270;
+                }
+            }else if(mediaQuery3.matches){
+                console.log('query3');
+                if(i%3==0){
+                    height=height+270;
+                }
+            }else{
+                console.log('query3');
+                if(i%2==0){
+                    height=height+180;
+                }
+            }
+            
+        }
+        let stheight=(String(height) +"px");
+        console.log(stheight);
+        woodworkingContainer.style.height=stheight;
         display('woodworking-img','/imagesW/');
     }
 
     const spacepicsContainer=document.getElementById("space");
     function addImagesToSpacepics(spaceImgLength){
+        const mediaQuery1 = window.matchMedia('(min-width:1440px)');
+        const mediaQuery2 = window.matchMedia('(min-width:1214px) and (max-width:1440px)');
+        const mediaQuery3 = window.matchMedia('(min-width:973px) and (max-width:1214px)');
+        let height=0;
+        if(mediaQuery1.matches){
+            height=270;
+        }else if(mediaQuery2.matches){
+            height=270;
+        }else if(mediaQuery3.matches){
+            height=270;
+        }else{
+            height=180;
+        }
         for(let i=1;i<=spaceImgLength;i++)
         {
             const img=document.createElement("img");
             img.classList.add('space-img');
             img.setAttribute("src",`./imagesS/${i}.jpg`);
-            img.style.width="200px";
-            img.style.height="200px";
+            //img.style.width="200px";
+            //img.style.height="200px";
             spacepicsContainer.appendChild(img);
-        }
 
+           if (mediaQuery1.matches) {
+                console.log('query1');
+                if(i%5==0){
+                    height=height+270;
+                }
+                    
+            } else if(mediaQuery2.matches) {
+                console.log('query2');
+                if(i%4==0){
+                    height=height+270;
+                }
+            }else if(mediaQuery3.matches){
+                console.log('query3');
+                if(i%3==0){
+                    height=height+270;
+                }
+            }else{
+                console.log('query3');
+                if(i%2==0){
+                    height=height+180;
+                }
+            }
+            
+        }
+        let stheight=(String(height) +"px");
+        console.log(stheight);
+        spacepicsContainer.style.height=stheight;
         display('space-img','/imagesS/');
     }
 
