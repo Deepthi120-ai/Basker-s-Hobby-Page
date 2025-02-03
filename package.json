@@ -8,7 +8,7 @@
   },
     "name": "basker-portfolio-3",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "fileHandling.js",
   "devDependencies": {},
   "scripts": {
     "dev":"node --watch fileHandling.js",
