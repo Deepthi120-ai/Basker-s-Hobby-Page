@@ -84,8 +84,7 @@
     console.log('hi');
     const response=fetch('/', {
       method: 'POST',
-      body: JSON.stringify({ folderName1: 'imagesP', folderName2: 'imagesW',//folderName3: 'imagesS'
-                           }),
+      body: JSON.stringify({ folderName1: 'imagesP', folderName2: 'imagesW',folderName3: 'imagesS'}),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -95,7 +94,7 @@
         console.log(responseData.folder1,responseData.folder2,responseData.folder3);
         addImagesToPhotography(parseInt(responseData.folder1));
         addImagesToWoodworking(parseInt(responseData.folder2));
-        //addImagesToSpacepics(parseInt(responseData.folder3));
+        addImagesToSpacepics(parseInt(responseData.folder3));
       })
       .catch(error => console.error('Error:', error));
         
